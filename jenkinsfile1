@@ -1,0 +1,43 @@
+pipeline{
+    agent{
+        agent any
+    }
+    stages{
+        stage("Build"){
+            steps{
+                echo "========executing Build========"
+            }
+    
+        }
+        stage("Test"){
+            steps{
+                echo "========executing Test========"
+            }
+    
+        }
+        stage("Deploy"){
+            steps{
+                echo "========executing Deploy========"
+            }
+    
+        }
+        stage("Delete"){
+            steps{
+                echo "========executing Delete========"
+            }
+    
+        }
+
+    }
+    post{
+        always{
+            echo "========always========"
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
+}
