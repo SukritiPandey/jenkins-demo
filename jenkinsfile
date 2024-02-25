@@ -1,0 +1,67 @@
+pipeline {
+    agent any
+    environment{
+        name = 'Sukriti'
+    }
+    parameters{
+               string(name: 'Person', defaultValue: 'Durga Rath', description: "My patidev")
+               booleanParam(name: 'isMale', defaultValue: 'true', description: "My patidev is a male person as I am female")
+               choice(name: 'City', choices: ['Lucknow','Bhuvneshwar'], description: "My patidev is a male person as I am female")
+            }
+    stages {
+        stage('Run A Command') {
+            steps {
+                echo 'Hello World Build'
+                sh '''
+                ls
+                date
+                pwd
+                cal 2021
+                '''
+                
+            }
+        }
+        stage('Environment Variables') {
+            environment{
+                userName = 'Mac'
+            }
+            steps {
+                sh 'echo "${BUILD_ID}"'
+                sh 'echo "${name}"'
+                sh 'echo "${userName}"'
+                
+            }
+        }
+        stage('Parameters') {
+            environment{
+                userName = 'Mac'
+            }
+            steps {
+                echo 'Hello World Prod'
+                sh 'echo "${Person}"'
+            }
+        }
+        stage('Continue ?') {
+            input {
+                message "Should we finish it now?"
+                ok "Yupppppp!!!!!"
+            }
+            steps {
+                echo 'Hello World Prod'
+                sh 'echo "${Person}"'
+            }
+        }
+    }
+        post {
+             always {
+                echo "Always->Well hellooooooo beautiful!!"
+             }
+             failure {
+                echo "Failure->Well hellooooooo beautiful!!"
+             }
+             success {
+                echo "Success-> Well hellooooooo beautiful!!"
+             }
+        }
+  
+}
